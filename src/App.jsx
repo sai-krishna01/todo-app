@@ -1,12 +1,39 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { Route, router } from 'react-router'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import TodosCard from './components/TodosCard'
+import Home from './components/Home'
 
 function App() {
   // const [count, setCount] = useState(0)
   const [alertStatus, setAlertStatus] =useState(false)
+  const [todos, setTodos] = useState([])
   const taskinput = useRef()
+
+  //fetch tados from firebase
+useEffect(()=>{
+  fetch('https://todos-28286-default-rtdb.firebaseio.com/todos.json').then((data)=>{
+    return data.json()}).then((data)=>{
+       let tempTodos = []
+       for(const key in data){
+        let todos = {
+          id:key,
+          ...data[key]
+        }
+        tempTodos.push(todos)
+       }
+       setTodos(tempTodos)
+    })
+},[])
+
+useEffect(()=>{
+  console.log(todos)
+}, [todos])
+
+  
+  
   function addTaskHandeler() {
     // let task = taskinput.current.value
     let currenttask ={
@@ -19,6 +46,7 @@ function App() {
       body: JSON.stringify(currenttask)
     }).then(()=>{
       setAlertStatus(true)
+      setTodos((preTodos)=>[...preTodos, currenttask])
     })
   }
   
@@ -41,6 +69,20 @@ function App() {
         <input ref={taskinput} type="text" placeholder='create task' />
         <button className='btn' onClick={addTaskHandeler}>add new task</button>
       </div>
+
+
+      {
+        todos.map((todo)=>{
+        return <TodosCard title={todo.title} id={todo.id} />
+        })
+      }
+
+    
+    <Routes>
+     <route path='/' element={<Home/>} />
+    </Routes>
+
+
     </>
   )
 }
