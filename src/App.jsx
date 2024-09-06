@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Route, router } from 'react-router'
+// import { Route, Router } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -78,9 +78,9 @@ useEffect(()=>{
       }
 
     
-    <Routes>
-     <route path='/' element={<Home/>} />
-    </Routes>
+    {/* <Routes>
+     <Route path='/' element={<Home/>} />
+    </Routes> */}
 
 
     </>
