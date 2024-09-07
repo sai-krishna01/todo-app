@@ -1,10 +1,14 @@
+import { useNavigate } from "react-router-dom"
 function TodosCard(props){
+    let Navigate = useNavigate()
     function deleteTaskHandler(){
         console.log('delete atempt!' + props.id)
         fetch(`https://todos-28286-default-rtdb.firebaseio.com/todos/${props.id}.json`,{
             method:'DELETE'
         }).then(()=>{
             console.log('delete task!')
+            Navigate('/')
+            window.location.reload()
         })
     }
     return (
