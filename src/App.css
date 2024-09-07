@@ -118,4 +118,17 @@ color: gray;
   .card{
     width: 350px;
   }
+  .alert{
+    padding:10px;
+  }
+}
+.nav{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+margin-top: 24px;
+}
+.icon, .icon-2{
+  margin: 28px;
+  color: black;
 }
