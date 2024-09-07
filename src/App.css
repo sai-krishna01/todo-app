@@ -108,3 +108,14 @@ color: gray;
   border: none;
   color: red;
 }
+
+@media (max-width: 767px) {
+
+  .container{
+    width: 370px;
+  }
+
+  .card{
+    width: 350px;
+  }
+}
