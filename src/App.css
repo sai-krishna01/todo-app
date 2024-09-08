@@ -106,7 +106,7 @@ color: gray;
 }
 .delete-btn:hover{
   border: none;
-  color: red;
+  color: rgba(255, 60, 0, 0.801);
 }
 
 @media (max-width: 767px) {
@@ -131,4 +131,7 @@ margin-top: 24px;
 .icon, .icon-2{
   margin: 28px;
   color: black;
+}
+.icon{
+  margin-left: 0px;
 }

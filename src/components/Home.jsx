@@ -43,7 +43,9 @@ useEffect(()=>{
       setAlertStatus(true)
       setTodos((preTodos)=>[...preTodos, currenttask])
     })
+    window.location.reload()
   }
+  
   
   function closeAlertHandler(){
     setAlertStatus(false)
