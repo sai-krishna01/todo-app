@@ -41,9 +41,9 @@ useEffect(()=>{
       body: JSON.stringify(currenttask)
     }).then(()=>{
       setAlertStatus(true)
-      setTodos((preTodos)=>[...preTodos, currenttask])
+      setTodos((preTodos)=>[...preTodos, currenttask], window.location.reload())
     })
-    window.location.reload()
+    
   }
   
   
