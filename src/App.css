@@ -106,7 +106,7 @@ color: gray;
 }
 .delete-btn:hover{
   border: none;
-  color: rgba(255, 60, 0, 0.801);
+  color: rgb(228, 66, 17);
 }
 
 @media (max-width: 767px) {
