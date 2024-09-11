@@ -1,4 +1,8 @@
 import { useNavigate } from "react-router-dom"
+
+{<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457127668879479"
+    crossorigin="anonymous"></script></head>}
+
 function TodosCard(props){
     let Navigate = useNavigate()
     function deleteTaskHandler(){
