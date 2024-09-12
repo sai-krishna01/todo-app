@@ -2,9 +2,6 @@ import { useState, useRef, useEffect } from 'react'
 import { } from 'react-router-dom'
 import TodosCard from './TodosCard'
 
-{<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457127668879479"
-  crossorigin="anonymous"></script></head>}
-
 function Home () { 
   const [alertStatus, setAlertStatus] =useState(false)
   const [todos, setTodos] = useState([])
@@ -27,7 +24,7 @@ useEffect(()=>{
 },[])
 
 useEffect(()=>{
-  console.log(todos)
+  // console.log(todos)
 }, [todos])
 
   

@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom"
 
-{<head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457127668879479"
-    crossorigin="anonymous"></script></head>}
-
 function TodosCard(props){
     let Navigate = useNavigate()
     function deleteTaskHandler(){
@@ -10,7 +7,7 @@ function TodosCard(props){
         fetch(`https://todos-28286-default-rtdb.firebaseio.com/todos/${props.id}.json`,{
             method:'DELETE'
         }).then(()=>{
-            console.log('delete task!')
+            // console.log('delete task!')
             Navigate('/')
             window.location.reload()
         })
