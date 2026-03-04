@@ -1,27 +1,88 @@
-import { useNavigate } from "react-router-dom"
+/* eslint-disable react/prop-types */
+import { useState } from 'react'
 
-function TodosCard(props){
-    let Navigate = useNavigate()
-    function deleteTaskHandler(){
-        console.log('delete atempt!' + props.id)
-        fetch(`https://todos-28286-default-rtdb.firebaseio.com/todos/${props.id}.json`,{
-            method:'DELETE'
-        }).then(()=>{
-            // console.log('delete task!')
-            Navigate('/')
-            window.location.reload()
-        })
+function TodosCard({ todo, onDelete, onUpdate }) {
+  const [isEditing, setIsEditing] = useState(false)
+  const [editTitle, setEditTitle] = useState(todo.title)
+  const [editDueDate, setEditDueDate] = useState(todo.dueDate || '')
+
+  function openEditor() {
+    setEditTitle(todo.title)
+    setEditDueDate(todo.dueDate || '')
+    setIsEditing(true)
+  }
+
+  function cancelEditor() {
+    setEditTitle(todo.title)
+    setEditDueDate(todo.dueDate || '')
+    setIsEditing(false)
+  }
+
+  function submitUpdate(event) {
+    event.preventDefault()
+
+    const trimmedTitle = editTitle.trim()
+    if (!trimmedTitle) {
+      return
     }
-    return (
+
+    onUpdate(todo.id, {
+      title: trimmedTitle,
+      dueDate: editDueDate,
+    })
+    setIsEditing(false)
+  }
+
+  function toggleComplete() {
+    onUpdate(todo.id, { completed: !todo.completed })
+  }
+
+  return (
+    <article className={`card ${todo.completed ? 'card-complete' : ''}`}>
+      {isEditing ? (
+        <form className="card-edit" onSubmit={submitUpdate}>
+          <input
+            value={editTitle}
+            onChange={(event) => setEditTitle(event.target.value)}
+            type="text"
+            aria-label="Edit title"
+          />
+          <input
+            value={editDueDate}
+            onChange={(event) => setEditDueDate(event.target.value)}
+            type="date"
+            aria-label="Edit due date"
+          />
+          <div className="card-actions">
+            <button className="save-btn" type="submit">
+              Save
+            </button>
+            <button className="secondary-btn" onClick={cancelEditor} type="button">
+              Cancel
+            </button>
+          </div>
+        </form>
+      ) : (
         <>
-        <div className="card">
-            <div>{props.title}</div>
-            <button onClick={deleteTaskHandler} className="delete-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-</svg></button>
-            
-        </div>
+          <div className="card-body">
+            <h3>{todo.title}</h3>
+            <p>{todo.dueDate ? `Due: ${todo.dueDate}` : 'No due date'}</p>
+          </div>
+          <div className="card-actions">
+            <button className="secondary-btn" onClick={toggleComplete} type="button">
+              {todo.completed ? 'Mark pending' : 'Mark complete'}
+            </button>
+            <button className="secondary-btn" onClick={openEditor} type="button">
+              Edit
+            </button>
+            <button onClick={() => onDelete(todo.id)} className="delete-btn" type="button">
+              Delete
+            </button>
+          </div>
         </>
-    )
+      )}
+    </article>
+  )
 }
+
 export default TodosCard
